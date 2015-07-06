@@ -1,0 +1,3 @@
+- @genres.each do |genre|
+	div.genre data-endpoint="genre/#{space_to_hyphen(genre)}"
+		a href="/genre/#{space_to_hyphen(genre)}" = hyphen_to_space(genre)

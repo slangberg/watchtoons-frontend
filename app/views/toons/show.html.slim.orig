@@ -1,0 +1,100 @@
+#page_type.show_page
+  img#background_check src="#{@toon.backdrop}"
+  .content_padding_box
+    img.show_poster src="#{@toon.poster}"
+    .show_heading
+      h1.page_title = @toon.name
+      span.rating_box_big
+        span.rating class = css_rating_id(@toon)
+        span.rating_amount
+          ' (#{@toon.ann_rating['number']})
+          ' score: #{@toon.rating_percentage}
+      .heading_info_item
+        span.info_heading Show Length:
+        span = "#{number_of_seasons_txt} - #{@toon.number_of_episodes} Episodes"
+      .heading_info_item
+        span.info_heading Creator/Director:
+        | Hiroyuki Imaishi
+      .heading_info_item
+        span.info_heading Original Air Date:
+        span  = @toon.release_date
+
+      - if @toon.genres
+        .heading_info_item
+            span.info_heading Genres:
+            - @toon.genres.each do |genre|
+              - if genre == @toon.genres.last
+                ' #{genre}
+              - else
+                ' #{genre},
+      - if @toon.themes
+        .heading_info_item
+          span.info_heading Themes:
+          - @toon.themes.each do |theme|
+            - if theme == @toon.themes.last
+              ' #{theme}
+            - else
+              ' #{theme},x
+      .show_description.heading_info_item
+        span.info_heading Show Summary:
+        span = @toon.summary
+      .clr
+    .clr
+    .spotlight_episode
+      .spotlight_title
+        | First Episode
+      ul.result_list
+        li.result_item.episode_item
+          = link_to(first_episode.name, { class: 'episode_link', href: episode_path(first_episode) })
+            .result_paddingbox
+              span.result_image
+                - if first_episode.tvdb_meta
+                  .result_thumb.episode_thumb.episode_img
+                    span.episode_number #{first_episode.number}
+                    img.episode_thumb_img.thumb_img src="#{first_episode.tvdb_meta['thumbnail']}"
+                - else
+                  .result_thumb.episode_thumb
+                    span.episode_number #{first_episode.number}
+                    img.episode_thumb_img.thumb_img src="/assets/missing-episode.png"
+              span.result_content
+                span.result_info
+                  span.result_title = first_episode.name
+                - if first_episode.tvdb_meta
+                  span.result_info_line.episode_placment
+                    | Seasons
+                    span.season_num = first_episode.tvdb_meta['season']
+                    | - Episode
+                    span.episode_num = first_episode.number
+                - else
+                  span.result_info_line.episode_placment.episode_num   Episode #{first_episode.number}
+                span.last_watched.result_info_line
+                span.result_desciption.episode_desciption
+                  - if first_episode.tvdb_meta
+                    span.text = first_episode.tvdb_meta['summary']
+                  - else
+                    span.text No Episode Description Availble At This Time
+                span.watch_now_btn
+                  span.play_icon
+                  span.play_text Watch Again
+              .clr
+        .clr
+    #episode_list.episode_holder
+      h2 Episodes
+      .list_fliters
+        .result_search.result_filter
+          input.search type='search' placeholder="Filter list"
+          span.input_label Filter List
+<<<<<<< HEAD
+        .episode_order_sort.result_sort.asecend
+=======
+        .episode_order_sort.result_filter.result_sort.asecend 
+>>>>>>> added hide show wathted
+          span.input_label Asecending
+        .hide_watched.result_filter
+          span.input_label Show Watched
+      ul.list.result_list.episode_list
+        = render partial: 'results/episode_item', locals: { toon: @toon }
+    .edit_links
+    = link_to 'Edit', edit_toon_path(@toon)
+    '|
+    = link_to 'Back', toons_path

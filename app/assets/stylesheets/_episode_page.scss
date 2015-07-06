@@ -1,0 +1,98 @@
+#background_check{
+	display: none;
+}
+
+.episode_page .page_title {
+	margin-right: 310px;
+}
+
+.video_section{
+	text-align: center;
+}
+
+.episode_video_holder{
+	display: inline-block;
+}
+
+.episode_info {
+	font-size: 20px;
+	font-weight: 700;
+	margin: 10px 0px;
+}
+
+.edit_controls{
+	display: none;
+}
+
+.prev_button{
+	border-radius:5px;
+	&:before{
+		content:"r";
+		font-family: $icon;
+		position: relative;
+		margin-right: 5px;
+		font-size: 13px;
+		top: 2px;
+	}
+}
+.next_button{
+	border-radius:5px;
+	&:after{
+		content:"j";
+		font-family: $icon;
+		position: relative;
+		margin-left: 5px;
+		font-size: 13px;
+		top: 2px;
+	}
+}
+
+.episode_iframe{
+	display: inline-block;
+	border: 1px solid $border-grey;
+	box-shadow:0px 0px 5px rgba(0,0,0,.75);
+	display: none;
+	z-index: 2;
+	position: relative;
+}
+
+.episode_iframe.active{
+	display: inline-block;
+	height:390px;
+	width:680px;
+}
+
+
+.episode_heading{
+	margin-bottom: 20px;
+}
+
+.audio_tabs{
+	text-align: left;
+	margin-top: 5px;
+}
+
+
+.ep_button{
+	@include inputgrad;
+	@include heading-font;
+	display: inline-block;
+	border: 1px solid $border-grey;
+	padding: 7px 10px;
+	position: relative;
+	font-size: 13px;
+	margin-bottom: 7px;
+}
+
+.ep_button{
+	float:right;
+}
+
+.play_tracker{
+	position: absolute;
+	width: 100%;
+	border: 1px solid red;
+	bottom:0px;
+	margin-top: -75px;
+	z-index: 9000;
+}

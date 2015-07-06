@@ -1,0 +1,25 @@
+- toons.each do |toon|
+  li.result_item.show_item.result-direct id="#{unique_id_for(toon)}" resultid="#{toon.id}" ng-class="{'watched' : beenwatched}" ng-hide="beenwatched && !showwatched"
+    = link_to(toon.name, { class: 'show_link', href: toon_path(toon) } )
+      .result_paddingbox
+        span.result_image
+          .result_thumb.show_thumb
+            img.show_thumb_img.thumb_img.poster_img width="145" src="#{toon.poster}"
+        span.result_content
+          span.result_info
+            span.result_title = toon.name
+            span.rating_box
+              span.rating class = css_rating_id(toon)
+
+              span.rating_score
+                |( #{text_rating(toon)} )
+              span.rating_amount
+                |- #{toon.ann_rating['number']} votes
+            span.result_info_line.season_info #{toon.number_of_episodes} Episodes
+            span.last_watched.result_info_line ng-if="viewed_date" Last Watched: {{viewed_date}}
+          span.result_desciption = toon.summary
+          span.watch_now_btn
+            span.play_icon
+            span.play_text Watch Now
+            span.played_text Watch More
+        .clr

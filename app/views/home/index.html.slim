@@ -1,0 +1,8 @@
+#page_type.home_page
+  = render partial: 'spotlights/spotlight'
+  .content_padding_box
+  	#show_list.all_show_list (list-filter)
+	    h2.page_title All Shows
+	    .list_fliters ng-include="'/listfilters.html'"
+	    ul.list.result_list.show_list ng-class="{'small_list' : !showdescription}"
+	      = render partial: 'results/show_item', locals: { toons: @toons }

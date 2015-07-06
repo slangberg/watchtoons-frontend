@@ -1,0 +1,122 @@
+.home_page{
+	#spotlight_container{
+		position: relative;
+		margin-bottom: 20px;
+		top:10px;
+	}
+
+	.content_padding_box{
+		top: 0px;
+	}
+
+	#spotlight_show{
+	  padding: 0px;
+	  z-index: 1;
+	  position: relative;
+	}
+
+	#spotlight_show .slide_img{
+	  width: 990px;
+	  height: 557px;
+	  margin: 0px;
+	  z-index: 1;
+	  position: relative;
+	}
+
+	#spotlight_search_box{
+		$width:550px;
+		@include backgroundgrad(.7);
+		@include border;
+		border-radius: 7px;
+		position: absolute;
+		padding: 20px;
+		z-index: 900;
+		top: 170px;
+		left:50%;
+		width:$width;
+		margin-left:0-($width+20)/2;
+		text-align: center;
+
+		h1{
+			@include logo-font;
+			font-size: 24px;
+			margin: 0px;
+			padding: 0px;
+		}
+	}
+
+	.spotlight_search{
+		display: inline-block;
+		margin-top: 10px;
+		font-size: 20px;
+		 .search_box{
+		 		width: 350px;
+		 }
+		 .search_btn{
+		 	 font-size: 17px;
+		 	 padding-left: 15px;
+		 	 padding-right: 15px;
+		 }
+	}
+
+
+	.spotlight_info{
+		display: block;
+		position: absolute;
+		bottom: 0px;
+		z-index: 100;
+		@include backgroundgrad(.8);
+		padding:5px;
+		width: 980px;
+	}
+
+	.spotlight_info_paddingbox{
+		padding: 5px 5px 5px 155px;
+		display: block;
+	}
+
+	.spotlight_poster{
+		width: 142px!important;
+		height: auto;
+		box-shadow: 4px 4px 5px rgba(0,0,0,.75);
+		position: absolute;
+		z-index: 200;
+		bottom: 5px;
+		left: 5px;
+	}
+
+
+	.spot_show_title{
+		@include heading-font;
+		font-size: 20px;
+		display: block;
+	}
+
+	.spotlight_desciption{
+		font-family: $para-font;
+		font-size: 11px;
+		line-height: 12px;
+		display: block;
+		margin-bottom: 5px;
+	}
+
+	.spot_slide,
+	.spot_slide img{
+		width: 100%;
+	}
+
+	#show_list {
+		.list_fliters{
+			top: -35px;
+			margin-bottom: -20px;
+		}
+	}
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+#page_type.episode_page
+	.content_padding_box
+		h1.page_title = "#{hyphen_to_space(params[:genre].capitalize)} Anime"
+		h2.page_sub_head = "Anime in the #{hyphen_to_space(params[:genre].capitalize)} genre"
+		ul.result_list.show_list.small_list
+			= render partial: 'results/show_item', locals: { toons: @toons }

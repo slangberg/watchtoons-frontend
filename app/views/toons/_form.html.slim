@@ -1,0 +1,19 @@
+= form_for @toon do |f|
+  -if @toon.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@toon.errors.count, "error")} prohibited this toon from being saved:"
+      ul
+        - @toon.errors.full_messages.each do |msg|
+          li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :poster
+    = f.text_area :poster
+  .field
+    = f.label :backdrop
+    = f.text_area :backdrop
+  .actions
+    = f.submit 'Save'

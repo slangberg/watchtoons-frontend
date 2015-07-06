@@ -1,0 +1,16 @@
+#spotlight_container (spotlight-show)
+  slick#spotlight_show init-onload="true" data="spotData" speed="2500" autoplay="true"  fade="true"
+    div.spot_slide ng-repeat="slide in spotData"
+      a.spot_slide_link ng-href="/toons/{{slide.id}}"
+        img.slide_img.background_img ng-src="{{slide.backdrop}}"
+        span.spotlight_info
+          img.spotlight_poster.poster_img width="142" ng-src="{{slide.poster}}"
+          .spotlight_info_paddingbox
+            span.spot_show_title {{slide.name}}
+            span.rating_box
+              span.rating.spot_show_rating ng-class="{{slide.rating_class}}"
+              span.rating_amount {{"( "+slide.text_rating+" ) - "+slide.rating_number+" Votes"}}
+            span.spotlight_desciption {{slide.summary}}
+            span.button
+              | Go To Show Page
+  = render partial: 'spotlights/search_box'

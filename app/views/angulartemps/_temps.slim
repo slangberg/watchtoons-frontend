@@ -1,0 +1,61 @@
+script type="text/ng-template" id="/episodeitem.html"
+	a.episode_link ng-href="/episodes/{{resdata.id}}"
+	    .result_paddingbox
+	      span.result_image
+	        .result_thumb.episode_thumb.episode_img
+	          span.episode_number {{resdata.number}}
+	          img.episode_thumb_img.thumb_img ng-if="resdata.tvdb_meta.thumbnail" ng-src="{{resdata.tvdb_meta.thumbnail}}"
+	          img.episode_thumb_img.thumb_img ng-if="!resdata.tvdb_meta.thumbnail" src="/assets/missing-episode.png"
+	      span.result_content
+	        span.result_info
+	          span.result_title {{resdata.name}}
+	          span.result_info_line.episode_placment.episode_num   Episode {{resdata.number}}
+	        span.last_watched.result_info_line 
+	        span.result_desciption.episode_desciption
+	          span.text ng-if="resdata.tvdb_meta.summary" {{resdata.tvdb_meta.summary}}
+	          span.text ng-if="!resdata.tvdb_meta.summary" No Episode Description Availble At This Time
+	        span.watch_now_btn
+	          span.play_icon
+	          span.play_text Watch Now
+	          span.played_text Watch Again
+	      .clr
+	.episode_nav ng-if="shownav"
+		a.prev_button.ep_button ng-if="resdata.previous" ng-href="/episodes/{{resdata.previous.id}}" Prev Episode
+		a.next_button.ep_button ng-if="resdata.next" ng-href="/episodes/{{resdata.next.id}}" Next Episode
+
+script type="text/ng-template" id="/showitem.html"
+  a.show_link ng-href="/toons/{{resdata.id}}"
+    .result_paddingbox
+      span.result_image
+        .result_thumb.show_thumb
+          img.show_thumb_img.thumb_img.poster_img width="145" src="{{resdata.poster}}"
+      span.result_content
+        span.result_info
+          span.result_title {{resdata.name}}
+          span.rating_box
+            span.rating ng-class="{{resdata.rating_class}}"
+            span.rating_score {{(resdata.text_rating)}}
+            span.rating_amount
+              |- {{resdata.ann_rating.number}} votes
+          span.result_info_line.season_info {{resdata.number_of_episodes}} Episodes
+          span.last_watched.result_info_line Last Viewed: {{viewed_date}}
+        span.result_desciption {{resdata.summary}}
+        span.watch_now_btn
+          span.play_icon
+          span.play_text Watch Now
+          span.played_text Watch More
+      .clr
+  .show_nav ng-if="shownav"
+		a.next_button.ep_button ng-if="resdata.last_watched" ng-href="/episodes/{{resdata.last_watched.id}}" Last Watched Episode
+		a.next_button.ep_button ng-if="resdata.last_watched.next.id" ng-href="/episodes/{{resdata.last_watched.next.id}}" Next Episode
+script type="text/ng-template" id="/listfilters.html"
+	.result_search.result_filter
+	  input.search type='search' placeholder="Search List" ng-model="searchtext.text" ng-change="searchList(searchtext.text)"
+	  span.input_label Search
+	.episode_order_sort.result_sort.result_filter ng-class="{'asecend' : displayorderclass}" ng-click="changeDisplayOrder()"
+	  span.input_label {{displayorder}}
+	.show_watched.result_check.result_filter ng-class="{'show' : showwatched}" ng-click="showWatched()"
+	  span.input_label {{showwatchedtext}}
+	.list_size.result_check.result_filter ng-class="{'show' : showdescription}" ng-click="showDescription()"
+	  span.input_label {{showdescriptiontext}}
+

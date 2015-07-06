@@ -1,0 +1,22 @@
+h1 Listing episodes
+
+table
+  tr
+    th Name
+    th Video sources
+    th Season
+    th
+    th
+    th
+
+  - @toons.each do |toon|
+    tr
+      td= toon.name
+      td= toon.id
+      td= link_to 'Show', toon
+      td= link_to 'Edit', edit_toon_path(toon)
+      td= link_to 'Destroy', toon, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to 'New Toon', new_toon_path

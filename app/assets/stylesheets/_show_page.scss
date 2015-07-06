@@ -1,0 +1,53 @@
+.show_page{
+
+	.show_poster{
+		width: 197px;
+		height: auto;
+		display: inline-block;
+		box-shadow:0px 0px 5px rgba(0,0,0,.75);
+		float: left;
+	}
+
+	.show_heading{
+		display: inline-block;
+		width: 727px;
+		margin-left: 20px;
+		float: left;
+		margin-top: -4px;
+
+		.button{
+			margin-top: 10px;
+			margin-right: 10px;
+		}
+	}
+
+	.show_watch_next_btn{
+		display: none;
+	}
+
+	.show_description{
+		font-family: $para-font;
+		font-size: 14px;
+		line-height: 19px;
+	}
+
+	.episode_holder h2{
+		@include heading-font;
+		font-size: 30px;
+		margin-bottom: 0px;
+	}
+
+	.spotlight_title{
+		@include heading-font;
+		font-size: 26px;
+		display: block;
+		margin-bottom: 10px;
+	}
+
+	.spotlight_episode{
+		margin-top: 15px;
+  	margin-bottom: 20px;
+	}
+
+}
+

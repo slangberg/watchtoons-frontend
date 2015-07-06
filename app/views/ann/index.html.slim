@@ -1,0 +1,35 @@
+p Find me in app/views/ann/index.html.slim
+
+- if @toon
+  h1 = @toon[:name]
+  p = @toon[:summary]
+  /p = @toon["id"]
+  /p = @toon["gid"]
+  /p = @toon["type"]
+  /p = @toon["precision"]
+  /p = @toon["generated_on"]
+  /p = @toon["info"]
+  /p = @toon["ratings"]
+  h2 Episodes
+  - if episodes = @toon[:episodes]
+    ul
+      - episodes.each do |episode|
+        li
+          = "#{episode[:num]} #{episode[:name]}"
+  h2 Video  Example
+  - video = @toon[:video_links][0]
+
+  - if subtitles = video[:subtitles]
+    h3 subtitles: #{subtitles}
+  - if video[:type] == 'iframe'
+    iframe style="overflow: hidden; border: 0; width: 680px; height: 480px" src="#{video[:src]}"
+
+
+  / p = @toon["review"]
+  / p = @toon["release"]
+  / p = @toon["news"]
+  / p = @toon["staff"]
+  / p = @toon["cast"]
+  / p = @toon["credit"]
+- else
+  = flash[:warning]

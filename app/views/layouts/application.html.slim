@@ -1,0 +1,20 @@
+doctype html
+html ng-app='senktus-app' ng-controller="MainCtrl"
+  head
+    title
+      | WatchToons.tv
+    meta name='environment' content="#{ENV['RACK_ENV']}"
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700|Roboto+Slab:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'
+    link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'
+    link href="https://fontastic.s3.amazonaws.com/2HukPJYtHhDwKaHzu3qZwi/icons.css" rel="stylesheet"
+  body class="#{dynamic_body_class} dynamic-background"
+    p class="notice" = notice
+    p class="alert"  = alert
+    = render partial: 'angulartemps/temps'
+  	= render partial: 'layouts/header'
+    #page_body
+      #content_wrapper
+        = yield

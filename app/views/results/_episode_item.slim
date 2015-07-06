@@ -1,0 +1,28 @@
+- toon.episodes.each do |episode|
+  li.result_item.episode_item.result-direct id="#{unique_id_for(episode)}" resultid="#{episode.id}" ng-class="{'watched' : beenwatched}" ng-hide="beenwatched && !showwatched"
+     = link_to(episode.name, { class: 'episode_link', href: episode_path(episode) } )
+      .result_paddingbox
+        span.result_image
+          - if episode.tvdb_meta
+            .result_thumb.episode_thumb.episode_img
+              span.episode_number #{episode.number}
+              img.episode_thumb_img.thumb_img src="#{episode.tvdb_meta['thumbnail']}"
+          - else
+            .result_thumb.episode_thumb
+              span.episode_number #{episode.number}
+              img.episode_thumb_img.thumb_img src="/assets/missing-episode.png"
+        span.result_content
+          span.result_info
+            span.result_title = episode.name
+            span.result_info_line.episode_placment.episode_num   Episode #{episode.number}
+          span.last_watched.result_info_line
+          span.result_desciption.episode_desciption
+            - if episode.tvdb_meta
+              span.text = episode.tvdb_meta['summary']
+            - else
+              span.text No Episode Description Availble At This Time
+          span.watch_now_btn
+            span.play_icon
+            span.play_text Watch Now
+            span.played_text Watch Again
+        .clr

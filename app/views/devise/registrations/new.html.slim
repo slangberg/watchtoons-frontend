@@ -1,0 +1,29 @@
+.pure-u-md-1-3.pika
+  img src="http://rs421.pbsrc.com/albums/pp291/nin10dogirl/pikachu.gif~c200"
+.pure-u-md-2-3
+  h2
+    | #{resource.class.to_s} Sign up
+
+  - if devise_error_messages?
+    .alert-error = (devise_error_messages! || flash[:alert] )
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'pure-form pure-form-stacked' } ) do |f|
+    .field
+      = f.label :email
+      br
+      = f.email_field :email, autofocus: true
+    .field
+      = f.label :password
+      - if @validatable
+        em
+          | (
+          = @minimum_password_length
+          |  characters minimum)
+      br
+      = f.password_field :password, autocomplete: "off"
+    .field
+      = f.label :password_confirmation
+      br
+      = f.password_field :password_confirmation, autocomplete: "off"
+    .actions
+      = f.submit "Sign up", class: 'button'
+  = render "devise/shared/links"

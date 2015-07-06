@@ -1,0 +1,14 @@
+.history_page .last_watched {
+  display: block!important;
+}
+
+#watched_tab_holder {
+  margin: 5px 0px;
+}
+
+.watched_tab h2 {
+  @include heading-font;
+  font-size: 20px;
+  color: #FFF;
+  margin-bottom: 5px;
+}

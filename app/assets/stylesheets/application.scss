@@ -1,0 +1,23 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+
+ *= require_self
+ *= require slick-carousel/slick/slick.css
+ */
+@import "reset";
+@import "old_base";
+@import "alerts";
+@import "mixins_vars";
+@import "ui_components";
+@import "core_style";
+@import "header";
+@import "home_page";
+@import "result_lists";
+@import "show_page";
+@import "episode_page";
+@import "watched_history";
+@import "typeahead";
+

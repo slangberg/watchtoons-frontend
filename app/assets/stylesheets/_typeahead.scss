@@ -1,0 +1,67 @@
+span.twitter-typeahead .tt-dropdown-menu {
+  @include border;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  width: 100%;
+  padding: 0px;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background:rgba(0,0,0,.9);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+  border-radius:5px;
+  margin-top: 2px
+}
+
+.search_result {
+  color: #FFF;
+  padding: 5px 10px;
+  border-bottom: 1px solid $border-grey;
+}
+
+.search_result_thumb{
+  display: block;
+  margin-right: 10px;
+  width: 45px;
+  height: 69px;
+  float: left;
+}
+
+.search_result_text{
+  float: left;
+  display: inline-block;
+}
+
+.search_result_name{
+  @include heading-font;
+  font-size: 13px;
+  margin-bottom: 3px;
+  display:block;
+}
+
+.search_result_length{
+  display: block;
+  font-size: 12px;
+}
+
+
+.spotlight_search .search_result_text{
+  width: 390px;
+}
+
+.site_search .search_result_text{
+  width: 182px;
+}
+
+.search_result:hover {
+  @include backgroundgrad;
+}
+
+span.twitter-typeahead {
+  width: 100%;
+}

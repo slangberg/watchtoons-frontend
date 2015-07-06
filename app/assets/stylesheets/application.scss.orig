@@ -1,0 +1,24 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+
+ *= require_self
+<<<<<<< HEAD
+ *= require pure/pure-min.css
+ *= require pure/grids-core-min.css
+ *= require pure/grids-responsive-min.css
+ *= require owl/owl-carousel/owl.carousel.css
+ *= require owl/owl-carousel/owl.theme.css
+=======
+ *= require owl.carousel/dist/assets/owl.carousel.min.css
+ *= require owl.carousel/dist/assets/owl.theme.default.min.css
+>>>>>>> uibuildv1
+ */
+@import "reset";
+@import "old_base";
+@import "mixins_vars";
+@import "core_style";
+@import "header";
+@import "home_page";

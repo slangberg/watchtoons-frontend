@@ -1,0 +1,59 @@
+#page_type.show_page
+  javascript:
+    var json_page_data = #{raw @toon.to_json};
+    var first_ep_data = #{raw first_episode.to_json};
+    first_ep_data.next = #{raw first_episode.next.to_json};
+  img#background_check src="#{@toon.backdrop}"
+  .content_padding_box
+    img.show_poster src="#{@toon.poster}"
+    .show_heading
+      h1.page_title = @toon.name
+      span.rating_box_big
+        span.rating id = css_rating_id(@toon)
+        span.rating_amount
+          ' (#{@toon.ann_rating['number']})
+          ' score: #{@toon.rating_percentage}
+      .heading_info_item
+        span.info_heading Show Length:
+        span = "#{number_of_seasons_txt} - #{@toon.number_of_episodes} Episodes"
+      .heading_info_item
+        span.info_heading Creator/Director:
+        | Hiroyuki Imaishi
+      .heading_info_item
+        span.info_heading Original Air Date:
+        span  = @toon.release_date
+
+      - if @toon.genres
+        .heading_info_item
+            span.info_heading Genres:
+            - @toon.genres.each do |genre|
+              - if genre == @toon.genres.last
+                ' #{genre}
+              - else
+                ' #{genre},
+      - if @toon.themes
+        .heading_info_item
+          span.info_heading Themes:
+          - @toon.themes.each do |theme|
+            - if theme == @toon.themes.last
+              ' #{theme}
+            - else
+              ' #{theme},
+      .show_description.heading_info_item
+        span.info_heading Show Summary:
+        span = @toon.summary
+      .clr
+    .clr
+    .spotlight_episode (spotlight-episode)
+      .spotlight_title {{spottitle}}
+      ul.result_list 
+        li.result_item.episode_item ng-class="[resclass,{'watched' : watched}]" ng-include="'/episodeitem.html'"
+    #episode_list.episode_holder (list-filter)
+      h2 Episodes
+      .list_fliters ng-include="'/listfilters.html'"
+      ul.list.result_list.episode_list ng-class="{'small_list' : !showdescription}"
+        = render partial: 'results/episode_item', locals: { toon: @toon }
+    .edit_links
+    = link_to 'Edit', edit_toon_path(@toon)
+    '|
+    = link_to 'Back', toons_path

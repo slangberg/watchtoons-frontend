@@ -1,0 +1,27 @@
+function checkimgs(){
+	$('img').on('error', function(event) {
+			if($(this).hasClass( "episode_img" )){
+        $(this).attr('src', "<%= asset_path('missing-episode.png') %>");
+			}
+
+			if($(this).hasClass( "poster_img" )){
+        $(this).attr('src', "<%= asset_path('missing-episode.png') %>");
+			}
+	});
+}
+
+function checkimg(jquerynode){
+	$(jquerynode).on('error', function(event) {
+			if($(this).hasClass( "episode_img" )){
+        $(this).attr('src', "<%= asset_path('missing-episode.png') %>");
+			}
+
+			if($(this).hasClass( "poster_img" )){
+        $(this).attr('src', "<%= asset_path('missing-episode.png') %>");
+			}
+
+			if($(this).hasClass( "background_img" )){
+				$(this).hide();
+			}
+	});
+}

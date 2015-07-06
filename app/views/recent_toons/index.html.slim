@@ -1,0 +1,20 @@
+#page_type.history_page
+  .content_padding_box (watched-history)
+    h1.page_title My Watched History
+    #watched_tab_holder.tab_holder
+      #ep_tab_btn.left_tab.tab ng-class="{'active':activeTab == 'ep'}" ng-click="activeTab = 'ep'"
+        | Watched Episodes
+      #sh_tab_btn.right_tab.tab ng-class="{'active':activeTab == 'sh'}" ng-click="activeTab = 'sh'"
+        | Watched Shows
+    #ep_tab.watched_tab ng-show="activeTab == 'ep'"
+      h2 
+        | Episodes
+      ul.list.result_list.episode_list
+        li.result_item.episode_item ng-include="'/episodeitem.html'" ng-repeat="resdata in epData"
+
+    #sh_tab.watched_tab ng-show="activeTab == 'sh'"
+      h2 
+        | Shows
+      ul.list.result_list.show_list
+        li.result_item.show_item.result-direct id="{{resdata.id}}" resultid="{{resdata.id}}" ng-class="{'watched' : beenwatched}" ng-hide="beenwatched && !showwatched" ng-include="'/showitem.html'" ng-repeat="resdata in shData"
+

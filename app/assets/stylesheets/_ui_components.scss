@@ -1,0 +1,237 @@
+//Ratings
+.rating_box{
+	display: block;
+	margin: 4px 0px;
+
+	.rating{
+		@include sprite;
+		display: inline-block;
+		width: 78px;
+		height: 14px;
+	}
+
+	.rating_amount{
+		font-size: 11px;
+		font-family: $para-font;
+		margin-left: 5px;
+		display: inline-block;
+		position: relative;
+		top: -3px;
+		font-weight: 500;
+	}
+
+	.rating_score{
+		font-size: 11px;
+		font-family: $para-font;
+		position: relative;
+		top: -3px;
+		margin-left: 5px;
+		font-weight: 600;
+	}
+
+	.rating.r_5{background-position: -15px -16px}
+	.rating.r_4_5{background-position: 0px 0px}
+	.rating.r_4{background-position: -15px -16px}
+	.rating.r_3_5{background-position: -15px 0px}
+	.rating.r_3{background-position: -15px*2  -16px}
+	.rating.r_2_5{background-position: -15px*2  0px}
+	.rating.r_2{background-position: -15px*3  -16px}
+	.rating.r_1_5{background-position: -15px*3  0px}
+	.rating.r_1{background-position:  -15px*4  -16px}
+
+}
+
+.rating_box_big{
+	display: block;
+	margin: 4px 0px;
+
+	.rating{
+		@include sprite(0px, -36px);
+		display: inline-block;
+		width: 104px;
+		height: 16px;
+	}
+
+	.rating_amount{
+		font-size: 11px;
+		font-family: $para-font;
+		margin-left: 5px;
+		display: inline-block;
+		position: relative;
+		top: -3px;
+		font-weight: 500;
+	}
+
+	.rating.r_5{background-position: 0px -57px}
+	.rating.r_4_5{background-position: 0px -36px}
+	.rating.r_4{background-position: -21px -57px;}
+	.rating.r_3_5{background-position: -22px*2 -36px}
+	.rating.r_3{background-position: -22px*2  -57px}
+	.rating.r_2_5{background-position: -22px*3  -36px}
+	.rating.r_2{background-position: -22px*3  -57px}
+	.rating.r_1_5{background-position: -22px*4  -36px}
+	.rating.r_1{background-position:  -22px*4  -57px}
+
+}
+
+//Buttons
+.button{
+	@include heading-font;
+	@include inputgrad;
+	@include border;
+	border-radius: 5px;
+	line-height: 25px;
+	display: inline-block;
+	font-size: 16px;
+	padding-bottom: 5px;
+	padding-right: 9px;
+	cursor: pointer;
+
+
+	&:before{
+		content:"b";
+		font-family: $icon;
+		font-size: 25px;
+		position: relative;
+		top: 6px;
+		left: 5px;
+		margin-right: 9px;
+	}
+}
+
+//searchboxes
+.spotlight_search_box{
+	padding: 4px 6px 5px 6px;
+	border-radius: 5px;
+	width: 450px;
+	font-size: 19px;
+}
+
+.spotlight_search_box::-webkit-input-placeholder {
+	color: #000;
+	font-family: $para-font;
+	font-size: 19px;
+}
+
+.site_search{
+	width: 243px;
+	display: inline-block;
+	position: relative;
+	top: 0px;
+}
+
+.main_search_box{
+	border:inset 1px $border-grey;
+	border-radius: 5px 0px 0px 5px;
+	padding: 5px;
+	box-shadow:inset 0px 0px 4px rgba(0,0,0,.75);
+	display: inline-block;
+	width: 160px;
+	-webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box;    
+  box-sizing: border-box;
+  height: 29px;
+	line-height: 29px;
+}
+
+.search_btn{
+	@include inputgrad;
+	@include heading-font;
+	@include border;
+	font-size: 13px;
+	padding: 6px 10px;
+	border-radius: 0px 5px 5px 0px;
+	cursor: pointer;
+	position: absolute;
+	right: 0px;
+	top: 1px;
+	display: inline-block;
+}
+
+.test_btn{
+	@include inputgrad;
+	@include heading-font;
+	@include border;
+	font-size: 13px;
+	padding: 5px 10px;
+	border-radius:5px;
+	margin: 5px 0px 5px 0px;
+	line-height: 19px;
+	position: relative;
+	top: 4px;
+	margin: 0px 10px;
+	cursor: pointer;
+}
+
+//episode_thumb
+.episode_thumb{
+	position: relative;
+	margin-top: 5px;
+	width: 215px;
+
+	&:before{
+		content:"b";
+		position: absolute;
+		font-family: $icon;
+		font-size: 50px;
+		z-index: 900;
+		color: #FFF;
+		top: 50%;
+		left: 50%;
+		margin-top: -20px;
+		margin-left: -27px;
+		text-shadow: 1px 1px 5px rgba(0,0,0,.75);
+		display: none;
+	}
+}
+
+.episode_number{
+	@include heading-font;
+	position: absolute;
+	background: #000;
+	display: block;
+	z-index: 800;
+	padding: 5px 10px;
+	text-align: center;
+	top: -3px;
+	left: -3px;
+	box-shadow:0px 0px 3px rgba(0, 0, 0, 0.87);
+	border: 1px solid rgba(87, 87, 87, 0.87);
+}
+
+.episode_thumb_img{
+	width: 215px;
+	height: auto;
+}
+
+.tab_holder {
+	
+}
+
+.tab {
+	@include inputgrad;
+	@include heading-font;
+	display: inline-block;
+	border: 1px solid $border-grey;
+	padding: 7px 10px;
+	position: relative;
+	font-size: 13px;
+	margin-bottom: 7px;
+	cursor: pointer;
+}
+
+.left_tab{
+	border-radius: 5px 0px 0px 5px;
+}
+
+.right_tab{
+	border-radius: 0px 5px 5px 0px;
+}
+
+.left_tab + .right_tab {
+	margin-left: -1px;
+}
+
+.tab.active{
+	background: #000;
+} 

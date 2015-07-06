@@ -1,0 +1,63 @@
+/*flash*/
+.alert-error h2 { font-size: 16px; }
+
+.alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+  text-align: left;
+  padding:10px;
+  margin-bottom: 20px;
+}
+
+.alert-alert {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+  text-align: left;
+  padding:10px;
+}
+
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+  text-align: left;
+  padding:10px;
+}
+
+.alert-notice {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+  padding:10px;
+  text-align: left;
+}
+.button-success,
+.button-error,
+.button-warning,
+.button-secondary {
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-success {
+  background: rgb(28, 184, 65); /* this is a green */
+}
+
+.button-error {
+  background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-warning {
+  background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.button-secondary {
+  background: rgb(66, 184, 221); /* this is a light blue */
+}
+
+.field {margin-bottom:10px;}
+.button {color: white;}
+html .pure-button.button-success {background:green;}

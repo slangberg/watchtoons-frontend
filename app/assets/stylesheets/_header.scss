@@ -1,0 +1,64 @@
+.site_header{
+	width:100%;
+	position:fixed;
+  top:0px;
+  z-index: 999999;
+  background: #000;
+ 	border-bottom: 5px solid $border-grey;
+ 	box-shadow: 0px 4px 10px rgba(0,0,0,.75);
+}
+
+header{
+	display: block;
+	position: relative;
+	padding: 12px;
+}
+
+.logo{
+	@include logo-font;
+	color: #FFF;
+	font-size: 30px;
+	float: left;
+}
+
+
+.settings_btn{
+	@include inputgrad;
+	@include border;
+	display: inline-block;
+	position: relative;
+	top: 8px;
+	margin-left: 9px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 17px;
+	padding: 7px 7px 4px;
+	border-radius: 5px;
+	
+
+	&:after{
+		content:"a";
+		font-family: $icon;
+	}
+}
+
+.header_controls{
+	float: right;
+	display: inline-block;
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+
+	li{
+		display: inline-block;
+	}
+}
+
+.header_link{
+	@include heading-font;
+	font-size: 16px;
+	padding-right: 15px;
+	display: inline-block;
+	position: relative;
+	top:7px;
+}

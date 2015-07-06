@@ -1,0 +1,71 @@
+//varibles
+$border-grey:#575757;
+$body-font-color:#FFF;
+$logo-font: 'Ubuntu', sans-serif;
+$heading-font:'Roboto Slab', serif;
+$para-font:'Droid Sans', sans-serif;
+$icon:'untitled-font-1';
+
+@mixin sprite ($left: 0, $top: 0) {
+  background-image: image-url("sprite.png");
+  background-repeat: no-repeat;
+  background-position: $left $top;
+}
+
+@mixin border {
+	border:1px solid $border-grey;
+}
+
+@mixin heading-font{
+	font-family: $heading-font;
+	font-weight: 700;
+}
+
+@mixin logo-font{
+	font-family: $logo-font;
+	font-weight: 700;
+}
+
+@mixin inputgrad {
+	background: rgb(38,37,37); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(38,37,37,1) 0%, rgba(0,0,0,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(38,37,37,1)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(38,37,37,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(38,37,37,1) 0%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(38,37,37,1) 0%,rgba(0,0,0,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(38,37,37,1) 0%,rgba(0,0,0,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#262525', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+	&:hover{
+		background: #000;
+		text-shadow:inset 1px 1px 2px #000;
+	}
+}
+
+@mixin result-transition{
+	-webkit-transition: all 300ms ease;
+	-moz-transition: all 300ms ease;
+	-ms-transition: all 300ms ease;
+	-o-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+@mixin backgroundgrad($opacity:1) {
+	background: rgb(38,37,37); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(38,37,37,1) 0%, rgba(0,0,0,$opacity) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(38,37,37,$opacity)), color-stop(100%,rgba(0,0,0,$opacity))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(38,37,37,$opacity) 0%,rgba(0,0,0,$opacity) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(38,37,37,$opacity) 0%,rgba(0,0,0,$opacity) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(38,37,37,$opacity) 0%,rgba(0,0,0,$opacity) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(38,37,37,$opacity) 0%,rgba(0,0,0,$opacity) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#262525', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}
+}
+

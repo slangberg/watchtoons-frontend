@@ -1,0 +1,52 @@
+/ - raise @episode.toon.poster
+#page_type.episode_page
+
+  javascript:
+    var json_page_data = #{raw @episode.to_json};
+    json_page_data.toon = #{raw @episode.toon.to_json};
+    json_page_data.toon.rating_class = #{raw css_rating_id(@episode.toon).to_json};
+    json_page_data.toon.text_rating = #{raw text_rating(@episode.toon).to_json};
+    json_page_data.next = #{raw @episode.next.to_json};
+    json_page_data.previous = #{raw @episode.previous.to_json};
+
+  img#background_check src="#{@episode.toon.backdrop}"
+  .content_padding_box
+    .video_section
+      .episode_video_holder (viewtracker)
+        #dub_video.episode_iframe.active
+          .play_tracker
+          - if data = @episode.anime_flavor_embed_data
+            iframe src="#{data['src']}" height='390' width='680'
+          - else
+            p episode missing
+        .audio_tabs.tab_holder
+          .left_tab.tab#dub_tab.active English Dubbed
+          .right_tab.tab#sub_tab English Subbed
+          - if @episode.next
+            = link_to "Next Episode", @episode.next, { class: 'next_button ep_button' }
+          - if @episode.previous
+            = link_to "Prev Episode", @episode.previous, { class: 'prev_button ep_button' }
+    h1.page_title = @episode.name
+    .episode_heading
+      - if @episode.tvdb_meta
+        .heading_info_item
+          span = "Episode #{@episode.number}"
+        .heading_info_item
+          span.info_heading Air Date:
+          span = @episode.tvdb_meta['air_date']
+      .heading_info_item
+        span.info_heading Show:
+        span = @episode.toon.name
+      - if @episode.tvdb_meta
+        .episode_desciption.heading_info_item
+          span.text
+            span.info_heading Episode Summary:
+            | #{@episode.tvdb_meta['summary']}
+        span = notice
+    .pagination
+      .edit_controls
+        = link_to 'Edit', edit_episode_path(@episode)
+        '|
+        = link_to 'Back', episodes_path
+
+
