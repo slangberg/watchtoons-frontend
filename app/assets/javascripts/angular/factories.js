@@ -1,4 +1,4 @@
-senktus_factories.factory('historyApi',['localStorageService','$rootScope', function(localStorageService,$rootScope){
+watchtoons_factories.factory('historyApi',['localStorageService','$rootScope', function(localStorageService,$rootScope){
 	var watched_history_obj = {
 		shows:{},
 		episodes:{}

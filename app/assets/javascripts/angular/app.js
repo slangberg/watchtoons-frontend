@@ -1,7 +1,7 @@
-var senktus_controllers = angular.module('senktus.controllers', []);
-var senktus_directives = angular.module('senktus.directives', []);
-var senktus_factories = angular.module('senktus.factories', []);
+var watchtoons_controllers = angular.module('watchtoons.controllers', []);
+var watchtoons_directives = angular.module('watchtoons.directives', []);
+var watchtoons_factories = angular.module('watchtoons.factories', []);
 
-var app = angular.module('senktus-app', ['LocalStorageModule','senktus.controllers','senktus.directives','senktus.factories','slick']);
+var app = angular.module('watchtoons-app', ['LocalStorageModule','watchtoons.controllers','watchtoons.directives','watchtoons.factories','slick']);
 
 
