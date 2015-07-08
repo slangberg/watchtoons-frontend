@@ -1,11 +1,11 @@
 
-senktus_controllers.controller('MainCtrl', ['$scope','$rootScope','localStorageService','historyApi', function($scope,$rootScope,localStorageService,historyApi) {
+watchtoons_controllers.controller('MainCtrl', ['$scope','$rootScope','localStorageService','historyApi', function($scope,$rootScope,localStorageService,historyApi) {
   $scope.watched_history = historyApi.setupHistory();
 }]);
 
 
 
-senktus_controllers.controller('viewtrackerCtrl',['$scope','$element','historyApi', function($scope,$element,historyApi) {
+watchtoons_controllers.controller('viewtrackerCtrl',['$scope','$element','historyApi', function($scope,$element,historyApi) {
 	var activeiframe = $element.find('.episode_iframe.active');
 	var playtracker = $element.find('.play_tracker');
 	playtracker.width(activeiframe.width()).height(activeiframe.height());
@@ -15,7 +15,7 @@ senktus_controllers.controller('viewtrackerCtrl',['$scope','$element','historyAp
 	});
 }]);
 
-senktus_controllers.controller('dynamicBackgroundrCtrl',['$scope','$element', function($scope,$element) {
+watchtoons_controllers.controller('dynamicBackgroundrCtrl',['$scope','$element', function($scope,$element) {
 	if (typeof json_page_data !== "undefined")  {
 		if(_.has(json_page_data, "toon")){
 			var url = json_page_data.toon.backdrop;
@@ -30,7 +30,7 @@ senktus_controllers.controller('dynamicBackgroundrCtrl',['$scope','$element', fu
 	}
 }]);
 
-senktus_controllers.controller('spotlightEpisodeCtrl',['$scope','historyApi', function($scope,historyApi) {
+watchtoons_controllers.controller('spotlightEpisodeCtrl',['$scope','historyApi', function($scope,historyApi) {
   $scope.resclass = 'spotlight_episode_item';
   $scope.shownav = true;
 
@@ -49,7 +49,7 @@ senktus_controllers.controller('spotlightEpisodeCtrl',['$scope','historyApi', fu
 }]);
 
 
-senktus_controllers.controller('resultItemCtrl',['$scope','$element', '$attrs','historyApi', function($scope, $element, $attrs, historyApi) {
+watchtoons_controllers.controller('resultItemCtrl',['$scope','$element', '$attrs','historyApi', function($scope, $element, $attrs, historyApi) {
 	$scope.beenwatched = false;
   if($element.hasClass('episode_item')){
     var watched = historyApi.get("ep",$attrs.resultid)
@@ -65,7 +65,7 @@ senktus_controllers.controller('resultItemCtrl',['$scope','$element', '$attrs','
   }
 }]);
 
-senktus_controllers.controller('listFilterCtrl',['$scope','$element', '$attrs', function($scope, $element, $attrs) {
+watchtoons_controllers.controller('listFilterCtrl',['$scope','$element', '$attrs', function($scope, $element, $attrs) {
 	 var el = angular.element($element);
       $scope.displayorder = "Asecending";
       $scope.displayorderclass = true;
@@ -154,7 +154,7 @@ senktus_controllers.controller('listFilterCtrl',['$scope','$element', '$attrs', 
       }
 }]);
 
-senktus_controllers.controller('spotlightShowCtrl',['$scope','$element', '$attrs','$http', function($scope, $element, $attrs, $http) {
+watchtoons_controllers.controller('spotlightShowCtrl',['$scope','$element', '$attrs','$http', function($scope, $element, $attrs, $http) {
   $scope.pageurl = window.location.origin;
   $scope.initOnload = true;
   $scope.speed=2500;
@@ -172,7 +172,7 @@ senktus_controllers.controller('spotlightShowCtrl',['$scope','$element', '$attrs
 }]);
 
 
-senktus_controllers.controller('watchedHistoryCtrl',['$scope','$element','historyApi', function($scope,$element,historyApi) {
+watchtoons_controllers.controller('watchedHistoryCtrl',['$scope','$element','historyApi', function($scope,$element,historyApi) {
   $scope.resclass = 'watched_episode_item';
   $scope.shownav = true;
   $scope.epData = $scope.watched_history.episodes;

@@ -7,7 +7,7 @@ This repo contains all the HTML, SASS , JavaScript, CoffeeScript, and Ruby files
 This site is an in-progress proof of concept hybrid site/web app that was intended to demonstrate a number of different experimental ui design and data management methodologies. 
 
 ##The Experimental Features of the site are:
-- **Automatic public data retrieval: **As the site’s back processes new episode and show data it will automatically try to retrieve data and visual assets from public APIs and integrate those into the sites Postgres database
+- **Automatic public data retrieval:** As the site’s back processes new episode and show data it will automatically try to retrieve data and visual assets from public APIs and integrate those into the sites Postgres database
 - **Client-Side Only User Tracking :** The site uses AngularJs to save  a users view history to local storage, this allows for the site to offer users a custom tailored ui experience without having to store visitor personal info and allows for a very lean back end
 - **Seamless Dynamic User Interface:** The site uses AngularJs to deliver dynamic UI elements that can change seamlessly based on available assets and data, user view history and page based controls. This allows for a stable and tailored user experience for all users. 
 - **A Dark Base and Focus on Large Visual Assets:** The least successful experiment was to test the user experience of using a black base and white accents to drive focus to the large amount of images accessible via the external APIs. 
@@ -29,7 +29,7 @@ The majority of DOM manipulation and all history tracking on watchtoons.tv is do
 **History Api**: This factory provides method to get and set data stored via the local storage module using the show and episode ids as keys, these key are provided by the [view tracker directive](#viewtracker)
 
 
-| Call 			| Arguments | Action | Returns |
+| Call      | Arguments | Action | Returns |
 | :------------ | ------------- | :------------ |------------ |
 | setupHistory | N/A  | Checks if there is a view history object in local storage, if so sets that as the active history, if there is not one in storage it will create it and save it to local storage |N/A|
 | saveView | Episode Object  | Adds passed in episode and show to the active view history object and saves it to local storage|N/A|
@@ -38,87 +38,89 @@ The majority of DOM manipulation and all history tracking on watchtoons.tv is do
 
 **Code:  - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/factories.js)**
 
-``` 
+```javascript
 watchtoons_factories.factory('historyApi',['localStorageService','$rootScope', function(localStorageService,$rootScope){
-	var watched_history_obj = {
-		shows:{},
-		episodes:{}
-	}
+  var watched_history_obj = {
+    shows:{},
+    episodes:{}
+  }
 
-	function setHistory(){
-		console.warn("saved page");
-		console.warn(watched_history_obj);
-		localStorageService.set("watched_history", watched_history_obj);
-		$rootScope.watched_history = watched_history_obj;
-	}
+  function setHistory(){
+    console.warn("saved page");
+    console.warn(watched_history_obj);
+    localStorageService.set("watched_history", watched_history_obj);
+    $rootScope.watched_history = watched_history_obj;
+  }
 
-	return{
-		setupHistory:function(){
-			var historycheck = localStorageService.get("watched_history");
-			if(historycheck){
-				historycheck.visted = true;
-				watched_history_obj = historycheck;
-				return historycheck;
-			}
-			else{
-				setHistory();
-			}
-		},
-		saveView:function(json_page_data){
-			var d = new Date();
-	  	json_page_data['viewed_date'] = d.toDateString();
-	  	var toon = json_page_data.toon;
-	  	var episode = _.omit(json_page_data, 'toon'); 
-	  	
+  return{
+    setupHistory:function(){
+      var historycheck = localStorageService.get("watched_history");
+      if(historycheck){
+        historycheck.visted = true;
+        watched_history_obj = historycheck;
+        return historycheck;
+      }
+      else{
+        setHistory();
+      }
+    },
+    saveView:function(json_page_data){
+      var d = new Date();
+      json_page_data['viewed_date'] = d.toDateString();
+      var toon = json_page_data.toon;
+      var episode = _.omit(json_page_data, 'toon'); 
+      
 
-	  	if(!_.has(watched_history_obj.shows, json_page_data.toon_id)){
-	  		toon['watched_episodes'] = {};
-	  		toon['watched_episodes'][json_page_data.id] = episode;
-	  		toon['last_watched'] = episode;
-	  		toon['viewed_date'] = d.toDateString();
-	  		watched_history_obj.shows[json_page_data.toon_id] = toon;
-	  	}
+      if(!_.has(watched_history_obj.shows, json_page_data.toon_id)){
+        toon['watched_episodes'] = {};
+        toon['watched_episodes'][json_page_data.id] = episode;
+        toon['last_watched'] = episode;
+        toon['viewed_date'] = d.toDateString();
+        watched_history_obj.shows[json_page_data.toon_id] = toon;
+      }
 
-	  	else {
-	  		var saved_toon = watched_history_obj.shows[json_page_data.toon_id];
-	  		saved_toon['last_watched'] = episode;
-	  		saved_toon['viewed_date'] = d.toDateString();
-	  		saved_toon['watched_episodes'][json_page_data.id] = episode;
-	  	} 
+      else {
+        var saved_toon = watched_history_obj.shows[json_page_data.toon_id];
+        saved_toon['last_watched'] = episode;
+        saved_toon['viewed_date'] = d.toDateString();
+        saved_toon['watched_episodes'][json_page_data.id] = episode;
+      } 
 
-	  	watched_history_obj.episodes[json_page_data.id] = episode;
-  		
-  		setHistory();
-		},
-		get:function(type,id){
-			if(type == "sh"){
-				if (!_.isUndefined(watched_history_obj.shows[id])) {
+      watched_history_obj.episodes[json_page_data.id] = episode;
+      
+      setHistory();
+    },
+    get:function(type,id){
+      if(type == "sh"){
+        if (!_.isUndefined(watched_history_obj.shows[id])) {
           return watched_history_obj.shows[id];
         }
         else {
-        	return false;
+          return false;
         }
-			}
+      }
 
-			if(type == "ep"){
-				if (!_.isUndefined(watched_history_obj.episodes[id])) {
+      if(type == "ep"){
+        if (!_.isUndefined(watched_history_obj.episodes[id])) {
           return watched_history_obj.episodes[id];
         }
         else {
-        	return false;
+          return false;
         }
-			}
-		},
-		getAll:function(){
+      }
+    },
+    getAll:function(){
 
         return watched_history_obj;
-		}
-	};
+    }
+  };
 }]);
 ```
 
+[^ Go Back To Top](#top)
+
 ##Angular Directives
-**<a name="directiveindex"></a>Directive Index:**
+**<a name="dirindex"></a>Directive Index:**
 
 - [View Tracker Directive](#viewtracker)
 - [Dynamic Background Directive](#dynamicBackground)
@@ -127,13 +129,14 @@ watchtoons_factories.factory('historyApi',['localStorageService','$rootScope', f
 - [Home Page Spotlight Show Directive](#spotlightShow)
 - [Watched History List Directive](#watchedHistory)
 
+[^ Go Back To Top](#top)
 
 ###<a name="viewtracker"></a> View Tracker Directive 
 This directive will save a view using the History Api when a user hovers over a video, it user hover so the site can use iframe based externally hosted videos
 
 **Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/directives.js#L4)**
 
-``` 
+```javascript
 watchtoons_directives.directive('viewtracker', function() {
   return {
     restrict: 'A',
@@ -142,21 +145,20 @@ watchtoons_directives.directive('viewtracker', function() {
 });
 ```
 
-**Controller: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/controllers.js#L8)
-**
+**Controller: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/controllers.js#L8)**
 
-``` 
+```javascript
 watchtoons_controllers.controller('viewtrackerCtrl',['$scope','$element','historyApi', function($scope,$element,historyApi) {
-	var activeiframe = $element.find('.episode_iframe.active');
-	var playtracker = $element.find('.play_tracker');
-	playtracker.width(activeiframe.width()).height(activeiframe.height());
-	playtracker.on( "mouseover", function(){
-		historyApi.saveView(json_page_data);
-		playtracker.remove();
-	});
+  var activeiframe = $element.find('.episode_iframe.active');
+  var playtracker = $element.find('.play_tracker');
+  playtracker.width(activeiframe.width()).height(activeiframe.height());
+  playtracker.on( "mouseover", function(){
+    historyApi.saveView(json_page_data);
+    playtracker.remove();
+  });
 }]);
 ```
-[^ Go Back To Index](#directiveindex)
+[^ Go Back To Index](#dirindex)
 
 ###<a name="dynamicBackground"></a> Dynamic Background Directive
 
@@ -164,7 +166,7 @@ This directive will check to see if there is a live background image for the cur
 
 **Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/directives.js#L12)**
 
-``` 
+```javascript
 watchtoons_directives.directive('dynamicBackground', function() {
   return {
     restrict: 'C',
@@ -175,35 +177,35 @@ watchtoons_directives.directive('dynamicBackground', function() {
 
 **Controller: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/controllers.js#L18)**
 
-``` 
+```javascript
 watchtoons_controllers.controller('dynamicBackgroundrCtrl',['$scope','$element', function($scope,$element) {
-	if (typeof json_page_data !== "undefined")  {
-		if(_.has(json_page_data, "toon")){
-			var url = json_page_data.toon.backdrop;
-		}
-		else{
-			var url = json_page_data.backdrop;
-		}
+  if (typeof json_page_data !== "undefined")  {
+    if(_.has(json_page_data, "toon")){
+      var url = json_page_data.toon.backdrop;
+    }
+    else{
+      var url = json_page_data.backdrop;
+    }
 
-		if($element.find('#background_check').width() != 0){
-			$element.css("background-image", 'url(' + url + ')').addClass('has_dynamic_background');
-		}
-	}
-	
+    if($element.find('#background_check').width() != 0){
+      $element.css("background-image", 'url(' + url + ')').addClass('has_dynamic_background');
+    }
+  }
+  
 }]);
 ```
-[^ Go Back To Index](#directiveindex)
+[^ Go Back To Index](#dirindex)
 ###<a name="spotlightEpisode"></a> Spotlight Episode Directive
 
 This directive will check if the user has viewed any episodes of current show and if they have it show will show the last episode watched along with links to the pervious and and next episodes and if not it will show the show's first episode 
 
-** Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/directives.js#L19) **
+**Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/directives.js#L19)**
 
-``` 
+```javascript
 watchtoons_directives.directive('spotlightEpisode', function($templateCache,$compile,historyApi) {
   return {
     restrict: 'A',
-   	scope: true,
+    scope: true,
     controller:'spotlightEpisodeCtrl',
   };
 });
@@ -211,7 +213,7 @@ watchtoons_directives.directive('spotlightEpisode', function($templateCache,$com
 
 **Controller: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/controllers.js#L33)**
 
-``` 
+```javascript
 watchtoons_controllers.controller('spotlightEpisodeCtrl',['$scope','historyApi', function($scope,historyApi) {
   $scope.resclass = 'spotlight_episode_item';
   $scope.shownav = true;
@@ -224,42 +226,42 @@ watchtoons_controllers.controller('spotlightEpisodeCtrl',['$scope','historyApi',
     $scope.spottitle = "Last Watched Episode"
   }
 
- 	else{
- 		$scope.resdata = first;
+  else{
+    $scope.resdata = first;
     $scope.spottitle = "First Episode"
- 	}    
+  }    
 }]);
 
 ```
 
 **Template: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/views/angulartemps/_temps.slim#L1)**
 
-``` 
-	a.episode_link ng-href="/episodes/{{resdata.id}}"
-	    .result_paddingbox
-	      span.result_image
-	        .result_thumb.episode_thumb.episode_img
-	          span.episode_number {{resdata.number}}
-	          img.episode_thumb_img.thumb_img ng-if="resdata.tvdb_meta.thumbnail" ng-src="{{resdata.tvdb_meta.thumbnail}}"
-	          img.episode_thumb_img.thumb_img ng-if="!resdata.tvdb_meta.thumbnail" src="/assets/missing-episode.png"
-	      span.result_content
-	        span.result_info
-	          span.result_title {{resdata.name}}
-	          span.result_info_line.episode_placment.episode_num   Episode {{resdata.number}}
-	        span.last_watched.result_info_line 
-	        span.result_desciption.episode_desciption
-	          span.text ng-if="resdata.tvdb_meta.summary" {{resdata.tvdb_meta.summary}}
-	          span.text ng-if="!resdata.tvdb_meta.summary" No Episode Description Availble At This Time
-	        span.watch_now_btn
-	          span.play_icon
-	          span.play_text Watch Now
-	          span.played_text Watch Again
-	      .clr
-	.episode_nav ng-if="shownav"
-		a.prev_button.ep_button ng-if="resdata.previous" ng-href="/episodes/{{resdata.previous.id}}" Prev Episode
-		a.next_button.ep_button ng-if="resdata.next" ng-href="/episodes/{{resdata.next.id}}" Next Episode
+```javascript
+  a.episode_link ng-href="/episodes/{{resdata.id}}"
+      .result_paddingbox
+        span.result_image
+          .result_thumb.episode_thumb.episode_img
+            span.episode_number {{resdata.number}}
+            img.episode_thumb_img.thumb_img ng-if="resdata.tvdb_meta.thumbnail" ng-src="{{resdata.tvdb_meta.thumbnail}}"
+            img.episode_thumb_img.thumb_img ng-if="!resdata.tvdb_meta.thumbnail" src="/assets/missing-episode.png"
+        span.result_content
+          span.result_info
+            span.result_title {{resdata.name}}
+            span.result_info_line.episode_placment.episode_num   Episode {{resdata.number}}
+          span.last_watched.result_info_line 
+          span.result_desciption.episode_desciption
+            span.text ng-if="resdata.tvdb_meta.summary" {{resdata.tvdb_meta.summary}}
+            span.text ng-if="!resdata.tvdb_meta.summary" No Episode Description Availble At This Time
+          span.watch_now_btn
+            span.play_icon
+            span.play_text Watch Now
+            span.played_text Watch Again
+        .clr
+  .episode_nav ng-if="shownav"
+    a.prev_button.ep_button ng-if="resdata.previous" ng-href="/episodes/{{resdata.previous.id}}" Prev Episode
+    a.next_button.ep_button ng-if="resdata.next" ng-href="/episodes/{{resdata.next.id}}" Next Episode
 ```
-[^ Go Back To Index](#directiveindex)
+[^ Go Back To Index](#dirindex)
 
 ###<a name="resultItem"></a> Result Item Directive
 
@@ -267,7 +269,7 @@ This directive will check its own classes to see if its an episode item or show 
 
 **Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/directives.js#L27)**
 
-``` 
+```javascript
 watchtoons_directives.directive('resultItem', function(historyApi) {
   return {
     restrict: 'C',
@@ -280,9 +282,9 @@ watchtoons_directives.directive('resultItem', function(historyApi) {
 
 **Controller: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/controllers.js#L52)**
 
-``` 
+```javascript
 watchtoons_controllers.controller('resultItemCtrl',['$scope','$element', '$attrs','historyApi', function($scope, $element, $attrs, historyApi) {
-	$scope.beenwatched = false;
+  $scope.beenwatched = false;
   if($element.hasClass('episode_item')){
     var watched = historyApi.get("ep",$attrs.resultid)
   }
@@ -295,14 +297,14 @@ watchtoons_controllers.controller('resultItemCtrl',['$scope','$element', '$attrs
     $scope.beenwatched = true;
     $scope.viewed_date = watched.viewed_date;
   }
-	}]);	
+  }]);  
 }]);
 
 ```
 
 **Standard HTML for Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/views/angulartemps/_temps.slim)**
 
-``` 
+```javascript
 // Episode Item Template
 a.episode_link ng-href="/episodes/{{resdata.id}}"
   .result_paddingbox
@@ -327,8 +329,8 @@ a.episode_link ng-href="/episodes/{{resdata.id}}"
 .episode_nav ng-if="shownav"
   a.prev_button.ep_button ng-if="resdata.previous" ng-href="/episodes/{{resdata.previous.id}}" Prev Episode
   a.next_button.ep_button ng-if="resdata.next" ng-href="/episodes/{{resdata.next.id}}" Next Episode
-		
-		
+    
+    
 // Show Item Template
 a.show_link ng-href="/toons/{{resdata.id}}"
   .result_paddingbox
@@ -356,7 +358,7 @@ a.show_link ng-href="/toons/{{resdata.id}}"
   a.next_button.ep_button ng-if="resdata.last_watched.next.id" ng-href="/episodes/{{resdata.last_watched.next.id}}" Next Episode
   
 ```
-[^ Go Back To Index](#directiveindex)
+[^ Go Back To Index](#dirindex)
 
 ###<a name="listFilter"></a> List Filter Directive
 
@@ -364,7 +366,7 @@ This directive provides the ability to show and hide result item information, so
 
 **Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/directives.js#L36)**
 
-``` 
+```javascript
 watchtoons_directives.directive('listFilter', function() {
   return {
     restrict: 'AC',
@@ -376,9 +378,9 @@ watchtoons_directives.directive('listFilter', function() {
 
 **Controller: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/controllers.js#L68)**
 
-``` 
+```javascript
 watchtoons_controllers.controller('listFilterCtrl',['$scope','$element', '$attrs', function($scope, $element, $attrs) {
-	 var el = angular.element($element);
+   var el = angular.element($element);
       $scope.displayorder = "Asecending";
       $scope.displayorderclass = true;
       $scope.showwatchedtext = "Watched Shown"
@@ -469,7 +471,7 @@ watchtoons_controllers.controller('listFilterCtrl',['$scope','$element', '$attrs
 
 **Template: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/views/angulartemps/_temps.slim#L51)**
 
-``` 
+```slim
 .result_search.result_filter
   input.search type='search' placeholder="Search List" ng-model="searchtext.text" ng-change="searchList(searchtext.text)"
   span.input_label Search
@@ -482,16 +484,16 @@ watchtoons_controllers.controller('listFilterCtrl',['$scope','$element', '$attrs
   
 ```
 
-[^ Go Back To Index](#directiveindex)
+[^ Go Back To Index](#dirindex)
 
 ###<a name="spotlightShow"></a> Home Page Spotlight Show Directive
 
 This directive is for the home page slideshow, it make an ajax call to JSON route to get the show data and uses JVasyl Stanislavchuk's [Angular Slick directive](https://github.com/vasyabigi/angular-slick) for the slide show portion 
 
 
-** Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/directives.js#L44) **
+**Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/directives.js#L44)**
 
-``` 
+```javascript
 watchtoons_directives.directive('spotlightShow', function() {
   return {
     restrict: 'ACE',
@@ -503,7 +505,7 @@ watchtoons_directives.directive('spotlightShow', function() {
 
 **Controller: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/controllers.js#L157)**
 
-``` 
+```javascript
 watchtoons_controllers.controller('spotlightShowCtrl',['$scope','$element', '$attrs','$http', function($scope, $element, $attrs, $http) {
   $scope.pageurl = window.location.origin;
   $scope.initOnload = true;
@@ -524,7 +526,7 @@ watchtoons_controllers.controller('spotlightShowCtrl',['$scope','$element', '$at
 
 **Template: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/views/spotlights/_spotlight.slim)**
 
-``` 
+```slim
 #spotlight_container (spotlight-show)
   slick#spotlight_show init-onload="true" data="spotData" speed="2500" autoplay="true"  fade="true"
     div.spot_slide ng-repeat="slide in spotData"
@@ -541,16 +543,16 @@ watchtoons_controllers.controller('spotlightShowCtrl',['$scope','$element', '$at
             span.button
               | Go To Show Page
 ```
-[^ Go Back To Index](#directiveindex)
+[^ Go Back To Index](#dirindex)
 
 ###<a name="watchedHistory"></a> Watched History List Directive
 
 This directive is for [My Watched History](http://www.watchtoons.tv/watched-history) section of the site. This section consist of two tabs, one contains the users entire list of watched shows and another of their watched episodes 
 
-** Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/directives.js#L52) **
+**Directive: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/directives.js#L52)**
 
-``` 
-senktus_directives.directive('watchedHistory', function() {
+```javascript
+watchtoons_directives.directive('watchedHistory', function() {
   return {
     restrict: 'ACE',
     controller: 'watchedHistoryCtrl'
@@ -561,7 +563,7 @@ senktus_directives.directive('watchedHistory', function() {
 
 **Controller: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/assets/javascripts/angular/controllers.js#L175)**
 
-``` 
+```javascript
 watchtoons_controllers.controller('watchedHistoryCtrl',['$scope','$element','historyApi', function($scope,$element,historyApi) {
   $scope.resclass = 'watched_episode_item';
   $scope.shownav = true;
@@ -574,7 +576,7 @@ watchtoons_controllers.controller('watchedHistoryCtrl',['$scope','$element','his
 
 **Template: - [File Link](https://github.com/slangberg/watchtoons-frontend/blob/master/app/views/recent_toons/index.html.slim)**
 
-``` 
+```slim
 #watched_tab_holder.tab_holder
   #ep_tab_btn.left_tab.tab ng-class="{'active':activeTab == 'ep'}" ng-click="activeTab = 'ep'"
     | Watched Episodes
@@ -593,4 +595,4 @@ watchtoons_controllers.controller('watchedHistoryCtrl',['$scope','$element','his
       li.result_item.show_item.result-direct id="{{resdata.id}}" resultid="{{resdata.id}}" ng-class="{'watched' : beenwatched}" ng-hide="beenwatched && !showwatched" ng-include="'/showitem.html'" ng-repeat="resdata in shData"
       
 ```
-[^ Go Back To Index](#directiveindex)
+[^ Go Back To Index](#dirindex)
